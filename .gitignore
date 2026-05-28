@@ -8,3 +8,6 @@ env/
 .DS_Store
 *.local.json
 dagster.yaml
+target/
+*.duckdb
+dbt_packages/

@@ -1,7 +1,17 @@
-from dagster import Definitions, load_assets_from_modules
+from dagster import Definitions
+from dagster_dbt import DbtCliResource, DbtProject, dbt_assets
 
-from dagster_demo.assets import sales_analytics
+dagster_demo_project = DbtProject(project_dir=".")
+dagster_demo_project.prepare_if_dev()
 
-all_assets = load_assets_from_modules([sales_analytics])
 
-defs = Definitions(assets=all_assets)
+@dbt_assets(manifest=dagster_demo_project.manifest_path)
+def dagster_demo_assets(context):
+    yield from (
+        DbtCliResource(project_dir=".")
+        .cli(["build"], context=context)
+        .stream()
+    )
+
+
+defs = Definitions(assets=[dagster_demo_assets])

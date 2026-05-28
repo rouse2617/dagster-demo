@@ -1,6 +1,6 @@
 locations:
   - location_name: dagster-demo
     code_source:
-      package_name: dagster_demo
+      python_file: dagster_demo/definitions.py
     build:
       directory: .

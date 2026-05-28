@@ -1,0 +1,43 @@
+version: 2
+
+sources:
+  - name: seed_data
+    description: "Seed data loaded from CSV files"
+    tables:
+      - name: raw_sales_orders
+        description: "Raw sales order records"
+      - name: raw_customers
+        description: "Customer dimension table"
+
+models:
+  - name: daily_revenue
+    description: "Aggregated revenue per day"
+    columns:
+      - name: order_date
+        tests:
+          - unique
+          - not_null
+      - name: revenue
+        tests:
+          - not_null
+
+  - name: product_summary
+    description: "Per-product sales metrics"
+    columns:
+      - name: product
+        tests:
+          - unique
+          - not_null
+      - name: total_orders
+        tests:
+          - not_null
+      - name: total_revenue
+        tests:
+          - not_null
+
+  - name: customer_orders
+    description: "Customer-level order enrichment with tier info"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
