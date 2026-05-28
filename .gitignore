@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+.venv/
+venv/
+env/
+.DS_Store
+*.local.json
+dagster.yaml
